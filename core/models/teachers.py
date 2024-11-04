@@ -8,6 +8,10 @@ class Teacher(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.TIMESTAMP(timezone=True), default=helpers.get_utc_now, nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=True), default=helpers.get_utc_now, nullable=False, onupdate=helpers.get_utc_now)
-
+    @classmethod
+    def get_all(cls):
+        db_query = db.session.query(cls)
+        return db_query.all()
+        
     def __repr__(self):
         return '<Teacher %r>' % self.id
